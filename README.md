@@ -1,10 +1,11 @@
-# ESE_2324_AutoRadio
+[MCP23017.PDF](https://github.com/user-attachments/files/17989268/MCP23017.PDF)# ESE_2324_AutoRadio
 
 # TP de Synthèse – Autoradio
 
+
 ## 1 Démarrage
-### 1. Créez un projet pour la carte NUCLEO_L476RG. Initialisez les périphériques
-avec leur mode par défaut, mais n’activez pas la BSP.
+### 1. Créez un projet pour la carte NUCLEO_L476RG. 
+Initialisez les périphériques avec leur mode par défaut, mais n’activez pas la BSP.
  2. Testez la LED LD2.
  3. Testez l’USART2 connecté à la STLink interne.
  4. Débrouillez-vous pour que la fonction printf fonctionne.
