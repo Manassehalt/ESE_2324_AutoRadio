@@ -8,10 +8,10 @@
 ## 1 Démarrage
 
  1. On crée un projet pour la carte NUCLEO_L476RG et on initialise les périphériques.
- 2.  la LED LD2 et l’USART2 connecté à la STLink interne.
+ 2. Aprés test, la LED LD2 et l’USART2 connecté à la STLink interne fonctionnent.
  4. On réutilise la fonction printf developpé dans un tp précédent.
  5. On active FreeRTOS en mode CMSIS V1.
- 6. Faites fonctionner le shell :
+ 6. On fait fonctionner le shell de trois façon différentes :
 (a) Dans une tâche,
 (b) En mode interruption,
 (c) Avec un driver sous forme de structure.
