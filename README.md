@@ -22,13 +22,14 @@
 1. La référence du GPIO Expander est MCP23S17 E/SO. Vous pouvez retrouver sa datasheet dans le dossier datasheet de ce projet github.
 2. Sur le STM32, le SPI est utilisé dans notre projet est le SPI 3 
 3. Quels sont les paramètres à configurer dans STM32CubeIDE ?
-4. Configurez-les.
  
 ### 2.2 Tests
 
 1. On fait clignoter la LED GPA6.
 
-Code : "void MCP23S17_Init(void) {
+Code :
+```c
+void MCP23S17_Init(void) {
     uint8_t data[3];
 
     HAL_GPIO_WritePin(CS_GPIO_PORT, CS_PIN, GPIO_PIN_SET);   // CS HIGH
@@ -44,7 +45,8 @@ Code : "void MCP23S17_Init(void) {
     HAL_Delay(1);
     HAL_GPIO_WritePin(CS_GPIO_PORT, CS_PIN, GPIO_PIN_SET);   // CS HIGH
 }
-
+```
+```c
 void MCP23S17_WriteGPIOA(uint8_t gpioa_state) {
     uint8_t data[3];
 
@@ -77,18 +79,20 @@ void Blink_LED(void) {
     MCP23S17_WriteGPIOB(0x00);
 }
 
-"
+```
 
 
-3. Pour toutes les tester, on va faire preuve d'originalité et faire un chenillard .
-"void MCP23S17_Chenillard(void) {
+3. Pour toutes les tester, on va faire preuve d'originalité et faire un chenillard.
+```c
+void MCP23S17_Chenillard(void) {
     uint8_t chenillard_state = 0x01;
     for (int i = 0; i < 8; i++) {
         MCP23S17_WriteGPIOB(~chenillard_state);
         HAL_Delay(200);
         chenillard_state <<= 1;
     }
-}"
+}
+```
 
 ### 2.3 Driver
 
@@ -109,7 +113,7 @@ Les configurations suivantes sont à faire sur le logiciel STM32CubeIDE dans
 la partie graphique CubeMX. Le protocole I2S est géré par le périphérique SAI
 (Serial Audio Interface).
 1. Quelles pins sont utilisées pour l’I2C ? À quel I2C cela correspond dans le
-STM32 ?
+STM32 ?PB10PB11 CTRLDATA CTRLCLK
 2. Activez l’I2C correspondant, laissez la configuration par défaut.
 3. Configurez le SAI2 :
    
@@ -124,6 +128,14 @@ STM32 ?
 5. Si nécessaire, déplacez les signaux sur les bonnes broches. Vous pouvez
 déplacer une broche avec un [Ctrl+Clic Gauche]. Les signaux du SAI
 doivent être connectés au broches suivantes :
+
+```
+— PB12 : SAI2_FS_A
+— PB13 : SAI2_SCK_A
+— PB14 : SAI2_MCLK_A
+— PB15 : SAI2_SD_A
+— PC12 : SAI2_SD_B
+```
 
 
 
