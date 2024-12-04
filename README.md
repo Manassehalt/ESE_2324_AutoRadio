@@ -27,8 +27,68 @@
 ### 2.2 Tests
 
 1. On fait clignoter la LED GPA6.
-2. Pour toutes les tester, on va faire preuve d'originalité et faire un chenillard .
 
+Code : "void MCP23S17_Init(void) {
+    uint8_t data[3];
+
+    HAL_GPIO_WritePin(CS_GPIO_PORT, CS_PIN, GPIO_PIN_SET);   // CS HIGH
+    HAL_Delay(1);
+
+    data[0] = 0x40; // Adresse du registre IODIRB
+    data[1] = 0x01; // Toutes les broches configurées comme sorties
+    data[2] = 0x00;
+    HAL_Delay(1);
+    HAL_GPIO_WritePin(CS_GPIO_PORT, CS_PIN, GPIO_PIN_RESET); // CS LOW
+    HAL_Delay(1);
+    HAL_SPI_Transmit(&hspi3, data, 3, HAL_MAX_DELAY);
+    HAL_Delay(1);
+    HAL_GPIO_WritePin(CS_GPIO_PORT, CS_PIN, GPIO_PIN_SET);   // CS HIGH
+}
+
+void MCP23S17_WriteGPIOA(uint8_t gpioa_state) {
+    uint8_t data[3];
+
+    data[0] = 0x40;
+    data[1] = 0x12;
+    data[2] = gpioa_state;
+    HAL_GPIO_WritePin(CS_GPIO_PORT, CS_PIN, GPIO_PIN_RESET);
+    HAL_SPI_Transmit(&hspi3, data, 2, HAL_MAX_DELAY);
+    HAL_GPIO_WritePin(CS_GPIO_PORT, CS_PIN, GPIO_PIN_SET);
+}
+void MCP23S17_WriteGPIOB(uint8_t gpiob_state) {
+    uint8_t data[3];
+
+    data[0] = 0x40;
+    data[1] = 0x13;
+    data[2] = gpiob_state;
+    HAL_GPIO_WritePin(CS_GPIO_PORT, CS_PIN, GPIO_PIN_RESET);
+    HAL_SPI_Transmit(&hspi3, data, 3, HAL_MAX_DELAY);
+    HAL_GPIO_WritePin(CS_GPIO_PORT, CS_PIN, GPIO_PIN_SET);
+}
+void Blink_LED(void) {
+    printf("ENTERED FUNCTION\r\n");
+
+    MCP23S17_WriteGPIOB(0xFF);
+    printf("GPIOB LEDs ON\r\n");
+
+    HAL_Delay(1000);
+    printf("TEST DELAY\r\n");
+
+    MCP23S17_WriteGPIOB(0x00);
+}
+
+"
+
+
+3. Pour toutes les tester, on va faire preuve d'originalité et faire un chenillard .
+"void MCP23S17_Chenillard(void) {
+    uint8_t chenillard_state = 0x01;
+    for (int i = 0; i < 8; i++) {
+        MCP23S17_WriteGPIOB(~chenillard_state);
+        HAL_Delay(200);
+        chenillard_state <<= 1;
+    }
+}"
 
 ### 2.3 Driver
 
