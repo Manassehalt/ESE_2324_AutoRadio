@@ -97,7 +97,32 @@ void MCP23S17_Chenillard(void) {
 ### 2.3 Driver
 
 1. Écrivez un driver pour piloter les LED. Utilisez une structure.
-2. Écrivez une fonction shell permettant d’allumer ou d’éteindre n’importe
+
+   Typedef :
+"
+#ifndef DriverLEDs
+#define DriverLEDs
+
+#include "stm32l4xx_hal.h"
+
+typedef struct {
+    SPI_HandleTypeDef *hspi;  // Handle SPI
+    GPIO_TypeDef *cs_port;    // Port GPIO pour CS (Chip Select)
+    uint16_t cs_pin;          // Pin GPIO pour CS
+    uint8_t gpioa_state;      // État actuel des LEDs sur GPIOA
+    uint8_t gpiob_state;      // État actuel des LEDs sur GPIOB
+} LED_Driver_t;
+
+void LED_Driver_Init(LED_Driver_t *driver, SPI_HandleTypeDef *hspi, GPIO_TypeDef *cs_port, uint16_t cs_pin);
+void LED_Driver_SetGPIOA(LED_Driver_t *driver, uint8_t state);
+void LED_Driver_SetGPIOB(LED_Driver_t *driver, uint8_t state);
+void LED_Driver_SetLED(LED_Driver_t *driver, uint8_t port, uint8_t led, uint8_t state);
+
+#endif // DriverLEDs
+"
+
+
+3. Écrivez une fonction shell permettant d’allumer ou d’éteindre n’importe
 quelle LED.
 
 ## 3 Le CODEC Audio SGTL5000
