@@ -163,9 +163,24 @@ doivent être connectés au broches suivantes :
 — PB15 : SAI2_SD_A
 — PC12 : SAI2_SD_B
 ```
+5. Dans l’onglet Clock Configuration, configurez PLLSAI1 pour obtenir la
+fréquence To SAI2 à 12.235294 MHz.
+6. Configurez les blocs SAI A et SAI B de la manière suivante :
+7. Activez les interruptions.
+8. Configurez le DMA pour le SAI A et le SAI B. Activez le mode circulaire.
+9. Avant de passer à la suite, il est nécessaire d’activer l’horloge MCLK pour
+que le CODEC fonctionne.
 
+Pour cela, dans la fonction main(), après les
+initialisations, ajoutez la ligne suivante :
+```
+__HAL_SAI_ENABLE(&hsai_BlockA2);
+```
+>[Warning]
+>Sans cette ligne, l’I2C ne fonctionne pas, parce que le CODEC ne
+>reçoit pas d’horloge !
 
-
+### 3.2 Configuration du CODEC par l’I2C
 
 
 
