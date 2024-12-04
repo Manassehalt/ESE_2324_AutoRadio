@@ -181,7 +181,30 @@ __HAL_SAI_ENABLE(&hsai_BlockA2);
 >reçoit pas d’horloge !
 
 ### 3.2 Configuration du CODEC par l’I2C
-
+1. À l’aide d’un oscilloscope, vérifiez la présence d’une horloge sur le signal
+MCLK.
+2. À l’aide de la fonction HAL_I2C_Mem_Read(), récupérez la valeur du registre
+CHIP_ID (addresse 0x0000). L’adresse I2C du CODEC est 0x14.
+3. Observez les trames I2C à l’oscilloscope.
+4. Montrez à l’enseignant.
+5. Cherchez dans la documentation du SGTL5000 la valeur à assigner aux
+registres suivants :
+— CHIP_ANA_POWER
+— CHIP_LINREG_CTRL
+— CHIP_REF_CTRL
+— CHIP_LINE_OUT_CTRL
+— CHIP_SHORT_CTRL
+— CHIP_ANA_CTRL
+— CHIP_ANA_POWER
+— CHIP_DIG_POWER
+— CHIP_LINE_OUT_VOL
+— CHIP_CLK_CTRL
+— CHIP_I2S_CTRL
+— CHIP_ADCDAC_CTRL
+— CHIP_DAC_VOL
+6. Créez une paire de fichier sgtl5000.c / sgtl5000.h
+7. Dans le fichier sgtl5000.c, créez une fonction d’initialisation.
+8. Dans cette fonction, écrivez le code permettant de configurer ces registres.
 
 
 
