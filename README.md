@@ -126,7 +126,9 @@ void LED_Driver_SetLED(LED_Driver_t *driver, uint8_t port, uint8_t led, uint8_t 
 
 3. Écrivez une fonction shell permettant d’allumer ou d’éteindre n’importe
 quelle LED.
-
+>[!Warning]
+>
+>Vu la connnection des LED elles s'allument si le bit d'activation est à 0 et non à 1 !!
 ## 3 Le CODEC Audio SGTL5000
 ### 3.1 Configuration préalables
 
@@ -176,7 +178,8 @@ initialisations, ajoutez la ligne suivante :
 ```
 __HAL_SAI_ENABLE(&hsai_BlockA2);
 ```
->[Warning]
+>[!Warning]
+>
 >Sans cette ligne, l’I2C ne fonctionne pas, parce que le CODEC ne
 >reçoit pas d’horloge !
 
