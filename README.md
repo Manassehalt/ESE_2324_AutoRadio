@@ -93,7 +93,7 @@ void MCP23S17_Chenillard(void) {
     }
 }
 ```
-
+<p align="center"> <img src="graphique_logo/Chenillard.png" width="65%" height="auto" /> </p>
 ### 2.3 Driver
 
 1. Écrivez un driver pour piloter les LED. Utilisez une structure.
@@ -129,6 +129,8 @@ quelle LED.
 >[!Warning]
 >
 >Vu la connnection des LED elles s'allument si le bit d'activation est à 0 et non à 1 !!
+><p align="center"> <img src="graphique_logo/LED1.png" width="65%" height="auto" /> </p>
+
 ## 3 Le CODEC Audio SGTL5000
 ### 3.1 Configuration préalables
 
@@ -141,10 +143,14 @@ Le CODEC a besoin de deux protocoles de communication :
 Les configurations suivantes sont à faire sur le logiciel STM32CubeIDE dans
 la partie graphique CubeMX. Le protocole I2S est géré par le périphérique SAI
 (Serial Audio Interface).
-1. Quelles pins sont utilisées pour l’I2C ? À quel I2C cela correspond dans le
-STM32 ?PB10PB11 CTRLDATA CTRLCLK
-2. Activez l’I2C correspondant, laissez la configuration par défaut.
-3. Configurez le SAI2 :
+1. Quelles pins sont utilisées pour l’I2C ?
+  PB10PB11
+3.   À quel I2C cela correspond dans le
+STM32 ? CTRLDATA CTRLCLK
+
+5. Activez l’I2C correspondant, laissez la configuration par défaut.
+   
+7. Configurez le SAI2 :
    
 — SAI A : Master with Master Clock Out,
 
@@ -165,12 +171,15 @@ doivent être connectés au broches suivantes :
 — PB15 : SAI2_SD_A
 — PC12 : SAI2_SD_B
 ```
+<p align="center"> <img src="graphique_logo/IOC SAI.png" width="65%" height="auto" /> </p>
+
 5. Dans l’onglet Clock Configuration, configurez PLLSAI1 pour obtenir la
 fréquence To SAI2 à 12.235294 MHz.
-6. Configurez les blocs SAI A et SAI B de la manière suivante :
-7. Activez les interruptions.
-8. Configurez le DMA pour le SAI A et le SAI B. Activez le mode circulaire.
-9. Avant de passer à la suite, il est nécessaire d’activer l’horloge MCLK pour
+
+7. Configurez les blocs SAI A et SAI B de la manière suivante :
+8. Activez les interruptions.
+9. Configurez le DMA pour le SAI A et le SAI B. Activez le mode circulaire.
+10. Avant de passer à la suite, il est nécessaire d’activer l’horloge MCLK pour
 que le CODEC fonctionne.
 
 Pour cela, dans la fonction main(), après les
@@ -186,11 +195,13 @@ __HAL_SAI_ENABLE(&hsai_BlockA2);
 ### 3.2 Configuration du CODEC par l’I2C
 1. À l’aide d’un oscilloscope, vérifiez la présence d’une horloge sur le signal
 MCLK.
-2. À l’aide de la fonction HAL_I2C_Mem_Read(), récupérez la valeur du registre
+<p align="center"> <img src="graphique_logo/MCLK.png" width="65%" height="auto" /> </p>
+3. À l’aide de la fonction HAL_I2C_Mem_Read(), récupérez la valeur du registre
 CHIP_ID (addresse 0x0000). L’adresse I2C du CODEC est 0x14.
-3. Observez les trames I2C à l’oscilloscope.
-4. Montrez à l’enseignant.
-5. Cherchez dans la documentation du SGTL5000 la valeur à assigner aux
+4. Observez les trames I2C à l’oscilloscope.
+
+5. Montrez à l’enseignant.
+6. Cherchez dans la documentation du SGTL5000 la valeur à assigner aux
 registres suivants :
 — CHIP_ANA_POWER
 — CHIP_LINREG_CTRL
@@ -205,9 +216,9 @@ registres suivants :
 — CHIP_I2S_CTRL
 — CHIP_ADCDAC_CTRL
 — CHIP_DAC_VOL
-6. Créez une paire de fichier sgtl5000.c / sgtl5000.h
-7. Dans le fichier sgtl5000.c, créez une fonction d’initialisation.
-8. Dans cette fonction, écrivez le code permettant de configurer ces registres.
+7. Créez une paire de fichier sgtl5000.c / sgtl5000.h
+8. Dans le fichier sgtl5000.c, créez une fonction d’initialisation.
+9. Dans cette fonction, écrivez le code permettant de configurer ces registres.
 
 
 
